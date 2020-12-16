@@ -124,16 +124,12 @@ for H. erectus to make it to Asia, they must make a long trek across the Sahara 
 
 After a series of experiments with different values, I settled on the following base values
 for each parameter, with Pcol = 0.20:
-Biome P(ext | V)
-Tropical Forest 0.12
-Temperate Forest 0.12
-Savanna 0.08
-Grassland 0.12
-Desert 0.18
-Tundra 1.0
-Boreal Forest 0.90
-Warm-temperate Forest 0.18
+
+![table](https://user-images.githubusercontent.com/55513603/102291018-c8232700-3f07-11eb-9d0f-859ef6aa899a.png)
+
 Table 1. Values of P(ext | V)
+
+
 There is also the calculation of P(ext | D); like the hunter-gatherers from our own species,
 H. erectus traveled and hunted in small communities across a range of land with which they were
 deeply familiar.
@@ -148,11 +144,13 @@ P(ext | D) =
 (i)
 , where ƞ
 (i) is the Gaussian noise centered at 0 of an ensemble i.
+
 In the case that all 24 neighboring cells are occupied, there would then be a ~25% chance
 that cell goes extinct due to population density; combine this with P(ext | V), P(ext | A) and the fact
 that each surrounding cell is also faced with a high population density, and the chances of having
 dense desert communities are slim (Pext >> Pcol). With the parameters in place, the following
 results are obtained when the model is run from 2 ma to 1.8 ma.
+
 Fig. 2. Ensemble mean of simulation run from 2 ma to 1.8 ma, with Dmanisi labeled
 Darker values correspond to more inhabitation across each ensemble (with black indicating full
 occupation). The result indicates ~40% of the simulations made it Dmanisi by 1.8 ma. If the
