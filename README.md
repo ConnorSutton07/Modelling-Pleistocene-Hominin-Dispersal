@@ -181,22 +181,29 @@ Results
 Running the simulations from 2 ma to 1.5 ma yields the following four mean ensemble
 images at times 1.875 ma, 1.75 ma, 1.625 ma, and 1.5 ma, respectively.
 
+![routes](https://user-images.githubusercontent.com/55513603/102291193-34058f80-3f08-11eb-9798-493e8860eb2b.png)
+
 By 1.5 ma, the simulated H. erectus communities have populated all the cells of which
 they are capable of long-term habitation, and simulation beyond this point yields results nearly
 identical to those seen in Fig. 4d with slight fluctuations in population density. In the next
 section, I make interpretations of the spatiotemporal indications of the simulation, but I am not a
 trained paleontologist and these topics are highly debated amongst the trained paleontologists, so
 my analysis should be understood with some reservations.
-Fig. 4a. 1.875 ma Fig. 4b. 1.75 ma
-Fig. 4c. 1.625 ma Fig. 4d. 1.5 ma
+
+
 Analysis
+
+
 We can see the progression of the H. erectus dispersion throughout the Afro-Eurasian
 continent sequentially in Fig. 4, and for the most part, it lines up fairly well with the fossil
 record. Starting in Kenya, the population spreads first throughout Africa, with a few brave
 communities daring to cross the Sahara Desert on the path to the Near East. There are to methods
-of entry: the top of the Arabian Peninsula (modern Israel) or the bottom (modern Yemen).4
+of entry: the top of the Arabian Peninsula (modern Israel) or the bottom (modern Yemen).
+
+![routes](https://user-images.githubusercontent.com/55513603/102291193-34058f80-3f08-11eb-9798-493e8860eb2b.png)
 Fig. 5. Illustration of hypothesized Pleistocene hominin dispersal routes. Note that the given dates do not necessarily correspond
-to H. erectus, but Pleistocene hominins in general.4
+to H. erectus, but Pleistocene hominins in general.
+
 In this model, the first population to reach the Arabian Peninsula does so via the Yemen
 route, but are halted by the Sarawat Mountains. It is the second group who arrive by the Israel
 route that continue their migration into Eurasia, reaching Georgia. The communities continuing
@@ -205,10 +212,12 @@ mountains, and in this way reach India, passing the Indus river along the way. I
 belief that since it is likely that Pleistocene hominins took this route to get to India/Indonesia and
 because rivers are so conducive to fossilization, sedimentary rocks along the Indus river are
 likely possessors of hominin fossils.
+
 There is also the population that moves north from Georgia, spreading across Europe and
 Russia, reaching the Iberian Peninsula by ~1.6 ma. This is the most major contradiction between
 the model and the fossil record as the latter implies that H. erectus arrived in Spain closer to 0.7
 ma. Four potential reasons for this discrepancy come to mind.
+
 1. A factor not considered in this model prevented dispersal throughout Europe. For
 example, one fairly popular hypothesis from paleontologists Arribas & Palmqvist is
 that competition with Sabre-tooth tigers prevented hominins from thriving in Europe
@@ -231,16 +240,20 @@ making this explanation also fairly unsatisfactory.
 the fossil record that causes paleontologists to believe the opposite. Only through
 increased archaeological investigations in Eastern Europe can prove whether this is
 true or false.
+
 One of the most interesting results of the model is that the populations which moved
 north towards Europe/Russia and those which moved east towards India end up meeting back in
 China around the same time. It is easy to dismiss the Russian population as being purely a result
 of the model since it also generated the European population that does not coincide with the
 fossil record, but with a newfound interest in Russian hominins after the discovery of the
 Denisovans in Siberia,
-7
 future examinations could provide more evidence for one way or the
 other.
+
+
 Conclusion
+
+
 The combination of cellular automata simulations with Bayesian model averaging created
 a remarkably insightful illustration of Pleistocene hominin dispersal, and I am very happy to
 have found a way to integrate machine learning mathematics with anthropology.
@@ -255,7 +268,11 @@ averaging is accurate or some convoluted form based on a faulty interpretation. 
 however, that a deeper understanding of Bayesian inference techniques could lead to more robust
 projects within the field of paleontology as those who practice it must work constantly on
 probabilistic assumptions in trying to use scattered pieces of the past to create a cohesive story.
+
+
+
 References
+
 [1] Herries, Andy I. R.; Martin, Jesse M.; Leece, A. B.; Adams, Justin W.; Boschian, Giovanni; JoannesBoyau, Renaud; Edwards, Tara R.; Mallett, Tom; Massey, Jason; Murszewski, Ashleigh; Neubauer,
 Simon (3 April 2020). "Contemporaneity of Australopithecus, Paranthropus, and early Homo erectus in
 South Africa"
