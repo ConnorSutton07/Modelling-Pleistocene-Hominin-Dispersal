@@ -159,7 +159,9 @@ occupation). The result indicates ~40% of the simulations made it Dmanisi by 1.8
 parameters were again tuned to increase this number, it would likely be a case of overfitting.
 Continuing this simulation to 1.6 ma yields the following distribution:
 
+![dmanisi_distribution](https://user-images.githubusercontent.com/55513603/102291156-1b957500-3f08-11eb-9593-2182c94ef538.png)
 Fig. 3. Distribution of the Dmanisi colonization times
+
 Each bar in this graph represents the number of ensembles which colonized Dmanisi
 within a specific 20,000-year time frame, and on the whole, it clearly resembles a Gaussian
 distribution. Based on these results, it may be presumed that with a much larger number of
@@ -168,11 +170,17 @@ dates centered around 1.8 ma. Another noteworthy point from this distribution is
 the frequencies yields 29 instead of 30. This is because in one ensemble, the population went
 completely extinct and never reached Dmanisi. Again, this is a result of keeping the simulation
 generalized and avoiding overfitting and creating an arbitrary, ultimately meaningless set of data.
+
 At this point, the simulation is set-up and tuned, and we can begin simulating over long
 periods of time and generating data to analyze.
+
+
 Results
+
+
 Running the simulations from 2 ma to 1.5 ma yields the following four mean ensemble
 images at times 1.875 ma, 1.75 ma, 1.625 ma, and 1.5 ma, respectively.
+
 By 1.5 ma, the simulated H. erectus communities have populated all the cells of which
 they are capable of long-term habitation, and simulation beyond this point yields results nearly
 identical to those seen in Fig. 4d with slight fluctuations in population density. In the next
