@@ -126,7 +126,6 @@ After a series of experiments with different values, I settled on the following 
 for each parameter, with Pcol = 0.20:
 
 ![table](https://user-images.githubusercontent.com/55513603/102291018-c8232700-3f07-11eb-9d0f-859ef6aa899a.png)
-
 Table 1. Values of P(ext | V)
 
 
@@ -151,11 +150,15 @@ that each surrounding cell is also faced with a high population density, and the
 dense desert communities are slim (Pext >> Pcol). With the parameters in place, the following
 results are obtained when the model is run from 2 ma to 1.8 ma.
 
+![dmanisi](https://user-images.githubusercontent.com/55513603/102291107-fc96e300-3f07-11eb-9ee1-28b0eec61bdd.png)
 Fig. 2. Ensemble mean of simulation run from 2 ma to 1.8 ma, with Dmanisi labeled
+
+
 Darker values correspond to more inhabitation across each ensemble (with black indicating full
 occupation). The result indicates ~40% of the simulations made it Dmanisi by 1.8 ma. If the
 parameters were again tuned to increase this number, it would likely be a case of overfitting.
 Continuing this simulation to 1.6 ma yields the following distribution:
+
 Fig. 3. Distribution of the Dmanisi colonization times
 Each bar in this graph represents the number of ensembles which colonized Dmanisi
 within a specific 20,000-year time frame, and on the whole, it clearly resembles a Gaussian
