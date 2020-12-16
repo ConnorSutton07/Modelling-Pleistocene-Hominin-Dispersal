@@ -181,7 +181,7 @@ Results
 Running the simulations from 2 ma to 1.5 ma yields the following four mean ensemble
 images at times 1.875 ma, 1.75 ma, 1.625 ma, and 1.5 ma, respectively.
 
-![routes](https://user-images.githubusercontent.com/55513603/102291193-34058f80-3f08-11eb-9798-493e8860eb2b.png)
+![results](https://user-images.githubusercontent.com/55513603/102291358-8e065500-3f08-11eb-8315-cc6fa8b90199.png)
 
 By 1.5 ma, the simulated H. erectus communities have populated all the cells of which
 they are capable of long-term habitation, and simulation beyond this point yields results nearly
