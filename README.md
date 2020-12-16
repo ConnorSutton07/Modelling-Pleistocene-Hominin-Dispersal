@@ -55,16 +55,22 @@ The model which I have created for this purpose simulates cellular automata on a
 the Afro-Eurasian continent. Each cell represents an area of ~3,500 km2
 , is either occupied or
 unoccupied by a community, and has a vegetation class, altitude level, population density
-(referring to the number of occupied neighboring cells), and a probability of extinction, Pext.
-Pext = P(ext | V) + P(ext | A) + P(ext | D)
+(referring to the number of occupied neighboring cells), and a probability of extinction, P_ext.
+
+P_ext = P(ext | V) + P(ext | A) + P(ext | D)
+
 P(ext | V), P(ext | A), and P(ext | D) refer to the probabilities of extinction at each time step given a
 certain vegetation class, altitude, and population density, respectively. There is also a global
 probability of colonization Pcol, representing the probability that an occupied cell colonizes a
-neighboring unoccupied cell. The rate of dispersal can be given as Pcol (1 – Pext), meaning that
+neighboring unoccupied cell. The rate of dispersal can be given as P_col (1 – P_ext), meaning that
 scaling Pcol based on vegetation, altitude, etc. would have a redundant effect on the rate of
 dispersal.
+
 The vegetation classes are derived from a simplified version of the BIOME4 Pleistocene
 vegetation map, with the 28 original biomes being reduced to eight.
+
+![vegetation_map_with_key](https://user-images.githubusercontent.com/55513603/102290757-47642b00-3f07-11eb-87fe-e15ce4fc7c7f.png)
+
 While this may seem like an oversimplification, biomes separate in the BIOME4 map such as
 ‘tropical evergreen broadleaf forest,’ ‘tropical semi-evergreen broadleaf forest,’ and ‘tropical
 deciduous broadleaf forest’ have been condensed to more general categories like ‘tropical
@@ -74,14 +80,19 @@ grassland, desert, tropical forest, tundra, warm-temperate forest, and boreal fo
 seen in Figure 1. The elevation data comes from Nasa’s Socioeconomic Data & Applications
 Center (SEDAC). This data is not specific to the Pleistocene, but for the purposes of this model,
 the difference is negligible; the most essential difference between the modern and Pleistocene
-continents concern vegetation and sea level.4
+continents concern vegetation and sea level.
+
+
 Initialization, Bayesian Model Averaging, & Tuning the Parameters
+
+
 The first step in the initialization process is to create 30 ensembles, each of which
 conduct their own run of the simulation. The reason for this is that each single run of the
 simulation is equally arbitrary, and in order to gain any real-world insight from arbitrary
 simulations, several must be conducted with minor fluctuations so that the average may be taken
 and the separate runs compared. Every simulation yielding the same result is a problem
 equivalent to overfitting in model prediction methods, so these fluctuations are essential.
+
 Upon the initialization of each ensemble, a small amount of Gaussian noise is added to
 each parameter affecting Pext to create variations amongst the ensembles. They are also given a
 weight value—at the beginning, each ensemble has the same weight of 1
@@ -93,6 +104,7 @@ resembles reality, the higher its weight will be.5 The simulation then uses Baye
 averaging by taking the average values of each simulation and makes a prediction for the most
 likely outcome based on the ensemble weights. This prediction is used to produce an image
 illustrating the H. erectus populations on a map of the Afro-Eurasian continent.
+
 In each ensemble, the same five cells in Eastern Africaؙ—modern day Kenya—are
 populated, representing the supposed origin of H. erectus. Each time step of the simulation
 corresponds to 250 years, and the simulation is run from 2 ma to 1 ma. The values of P(ext | V) and
@@ -103,11 +115,13 @@ of course, impossible to know what values would yield results closest to the tru
 know that H. erectus reached Georgia by 1.8 ma and Indonesia by 1.6 ma, and that the fossil 
 records shows a trend towards Asia rather than Europe; based on this information, the parameters
 and ensembles weights may be tuned so that the mean-ensemble image reflects this.
+
 Perhaps the most important parameter is the value of P(ext | V) where V corresponds to the
 desert biome. Unlike the other biomes, which have either very high rates of extinction or very
 low rates of extinction, the desert has a more intermediate rate (warm-temperate forests being a
 similar exception). Figure 1 illustrates the significance of the desert biome’s rate of extinction;
 for H. erectus to make it to Asia, they must make a long trek across the Sahara Desert.
+
 After a series of experiments with different values, I settled on the following base values
 for each parameter, with Pcol = 0.20:
 Biome P(ext | V)
