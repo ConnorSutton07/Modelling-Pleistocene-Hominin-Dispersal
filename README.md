@@ -1,6 +1,4 @@
 # Simulating-H.-Erectus-Dispersal-with-Cellular-Automata
-Understanding Pleistocene Hominin Dispersal Through Cellular
-Automata & Bayesian Ensemble Modeling
 
 Connor Sutton, 12/11/2020
 
@@ -250,24 +248,6 @@ Denisovans in Siberia,
 future examinations could provide more evidence for one way or the
 other.
 
-
-Conclusion
-
-
-The combination of cellular automata simulations with Bayesian model averaging created
-a remarkably insightful illustration of Pleistocene hominin dispersal, and I am very happy to
-have found a way to integrate machine learning mathematics with anthropology.
-There are several aspects of this project that could be improved. Perhaps the most drastic
-way to improve the accuracy of this model is to incorporate wildlife data to further influence the
-rate of extinction in a certain area. The rate of extinction would decrease in areas with plentiful
-prey animals and little competition, and it would increase in the opposite case. This would allow 
-us to test the Sabre-tooth cat hypothesis against the model to see how it holds up, and, more
-generally, create a more accurate map of H. erectus communities.
-Additionally, I’m not sure if my understanding and implementation of Bayesian model
-averaging is accurate or some convoluted form based on a faulty interpretation. I believe,
-however, that a deeper understanding of Bayesian inference techniques could lead to more robust
-projects within the field of paleontology as those who practice it must work constantly on
-probabilistic assumptions in trying to use scattered pieces of the past to create a cohesive story.
 
 
 
