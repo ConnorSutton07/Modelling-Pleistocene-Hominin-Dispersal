@@ -2,7 +2,7 @@
 
 Connor Sutton, 12/11/2020
 
-Introduction
+## Introduction
 
 Homo Erectus, our immediate predecessor on the hominin evolutionary track, is one of
 the most interesting, significant, and mysterious members of our genus. No species of human
