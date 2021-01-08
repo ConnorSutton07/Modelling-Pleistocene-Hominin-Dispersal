@@ -2,7 +2,7 @@
 
 Connor Sutton, 12/11/2020
 
-## Introduction
+### Introduction
 
 Homo Erectus, our immediate predecessor on the hominin evolutionary track, is one of
 the most interesting, significant, and mysterious members of our genus. No species of human
@@ -46,7 +46,7 @@ generally, hominins of the Pleistocene—dispersed throughout the Afro-Eurasian 
 which factors were the most significant to this dispersal process.
 
 
-Setting up the Simulation
+### Setting up the Simulation
 
 
 The model which I have created for this purpose simulates cellular automata on a map of
@@ -81,7 +81,7 @@ the difference is negligible; the most essential difference between the modern a
 continents concern vegetation and sea level.
 
 
-Initialization, Bayesian Model Averaging, & Tuning the Parameters
+### Initialization, Bayesian Model Averaging, & Tuning the Parameters
 
 
 The first step in the initialization process is to create 30 ensembles, each of which
@@ -173,7 +173,7 @@ At this point, the simulation is set-up and tuned, and we can begin simulating o
 periods of time and generating data to analyze.
 
 
-Results
+### Results
 
 
 Running the simulations from 2 ma to 1.5 ma yields the following four mean ensemble
@@ -251,7 +251,7 @@ other.
 
 
 
-References
+### References
 
 [1] Herries, Andy I. R.; Martin, Jesse M.; Leece, A. B.; Adams, Justin W.; Boschian, Giovanni; JoannesBoyau, Renaud; Edwards, Tara R.; Mallett, Tom; Massey, Jason; Murszewski, Ashleigh; Neubauer,
 Simon (3 April 2020). "Contemporaneity of Australopithecus, Paranthropus, and early Homo erectus in
