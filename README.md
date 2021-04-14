@@ -167,7 +167,7 @@ ensembles, the simulation would yield a smooth Gaussian distribution of Dmanisi 
 dates centered around 1.8 ma. Another noteworthy point from this distribution is that summing
 the frequencies yields 29 instead of 30. This is because in one ensemble, the population went
 completely extinct and never reached Dmanisi. Again, this is a result of keeping the simulation
-generalized and avoiding overfitting and creating an arbitrary, ultimately meaningless set of data.
+generalized and avoiding overfitting or creating an arbitrary, ultimately meaningless set of data.
 
 At this point, the simulation is set-up and tuned, and we can begin simulating over long
 periods of time and generating data to analyze.
@@ -195,7 +195,7 @@ Analysis
 We can see the progression of the H. erectus dispersion throughout the Afro-Eurasian
 continent sequentially in Fig. 4, and for the most part, it lines up fairly well with the fossil
 record. Starting in Kenya, the population spreads first throughout Africa, with a few brave
-communities daring to cross the Sahara Desert on the path to the Near East. There are to methods
+communities daring to cross the Sahara Desert on the path to the Near East. There are two methods
 of entry: the top of the Arabian Peninsula (modern Israel) or the bottom (modern Yemen).
 
 ![routes](https://user-images.githubusercontent.com/55513603/102291193-34058f80-3f08-11eb-9798-493e8860eb2b.png)
