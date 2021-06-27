@@ -4,14 +4,14 @@ Connor Sutton, 12/11/2020
 
 ### Introduction
 
-Homo Erectus, our immediate predecessor on the hominin evolutionary track, is one of
+Homo Erectus, our predecessors on the hominin evolutionary track, is one of
 the most interesting, significant, and mysterious members of our genus. No species of human
 existed longer than H. Erectus, who roamed the Afro-Eurasian continent for a majority of the
 Pleistocene epoch. They exist in the fossil record from ~2 ma until 100 ka, well after the
 emergence of anatomically modern H. sapiens.1
 It is possible that H. Erectus was the first
 hominin to leave Africa, arriving in Dmanisi, Georgia by 1.8 ma; Java, Indonesia by 1.6 ma; and
-China by at least 0.7 ma.2 Persistence hunters armed with tools of their own design, they thrived
+China by at least 0.7 ma. Persistence hunters armed with tools of their own design, they thrived
 across a range of contrasting environments and traveled in communities in a manner reminiscent
 of early H. sapiens.
 
@@ -50,8 +50,7 @@ which factors were the most significant to this dispersal process.
 
 
 The model which I have created for this purpose simulates cellular automata on a map of
-the Afro-Eurasian continent. Each cell represents an area of ~3,500 km2
-, is either occupied or
+the Afro-Eurasian continent. Each cell represents an area of ~3,500 km2, is either occupied or
 unoccupied by a community, and has a vegetation class, altitude level, population density
 (referring to the number of occupied neighboring cells), and a probability of extinction, P_ext.
 
@@ -253,22 +252,26 @@ other.
 
 ### References
 
-[1] Herries, Andy I. R.; Martin, Jesse M.; Leece, A. B.; Adams, Justin W.; Boschian, Giovanni; JoannesBoyau, Renaud; Edwards, Tara R.; Mallett, Tom; Massey, Jason; Murszewski, Ashleigh; Neubauer,
-Simon (3 April 2020). "Contemporaneity of Australopithecus, Paranthropus, and early Homo erectus in
-South Africa"
+[1] Herries, Andy I. R.; Martin, Jesse M.; Leece, A. B.; Adams, Justin W.; Boschian, Giovanni; JoannesBoyau, Renaud; Edwards, Tara R.; Mallett, Tom; Massey, Jason; Murszewski, Ashleigh; Neubauer,Simon (3 April 2020). "Contemporaneity of Australopithecus, Paranthropus, and early Homo erectus in South Africa"
+
 [2] Hughes, John K; Haywood, Alan; Mithen, Steven J; Sellwood, Bruce W; Valdes, Paul J (12 December
 2006). “Investigating early hominin dispersal patterns: developing a framework for climate data
 integration”
+
 [3] Larsen, Clark Spencer. Our Origins: Discovering Biological Anthropology. Vol. 5, W.W. Norton &
 Company, 2020.
+
 [4] Kurt Lambeck, “Late pleistocene, holocene and present sea-levels: constraints on future
 change”,Volume 89, Issue 3, 1990, Pages 205-217.
+
 [5] Hoeting, J., Madigan, D., Raftery, A., & Volinsky, C. (1999). Bayesian Model Averaging: A
 Tutorial. Statistical Science, 14(4), 382-401. Retrieved December 12, 2020, from
 http://www.jstor.org/stable/2676803
+
 [6] A. Arribas, P. Palmqvist. “On the ecological connection between sabre-tooths and hominids: faunal
 dispersal events in the Lower Pleistocene and a review of the evidence for the first human arrival in
 Europe.” J. Archaeol. Sci., 26 (1999), pp. 571-585
+
 [7] Krause, J.; Fu, Q.; Good, J. M.; Viola, B.; Shunkov, M. V.; Derevianko, A. P. & Pääbo,
 S. (2010). "The complete mitochondrial DNA genome of an unknown hominin from southern
 Siberia". Nature. 464(7290): 894–897
