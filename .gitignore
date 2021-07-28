@@ -67,7 +67,7 @@ ENV/
 env.bak/
 venv.bak/
 Scripts/
-pynenv.cfg
+pyvenv.cfg
 
 # pytype static type analyzer
 .pytype/
