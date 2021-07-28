@@ -3,6 +3,26 @@ from numpy.random import random, choice
 from settings import α, ß
 
 class Cell:
+    """
+    Cell class for cellular automata simulation
+    Uses probabilities of extinction and colonization to spread about world
+    Incorporates genetic data to distinguish cell populations
+
+      Attributes
+    --------------
+    active: bool
+        Determines whether this cell participates in the simulation
+    P_ext: float
+        Probability of extinction of an inhabiting member at every time step; based on vegetation class
+    P_col: float
+        Probabiltiy of colonization by an occupied neighborign cell at every time step, based on altitude
+    genotype: np.array([float, float, float])
+        Genetic information in the range [0, 255] that corresponds to color
+    mutation_vector: np.array([float, float, float])
+        The genetic shift at every time step
+
+    """
+    
     def __init__(self, 
                  active: bool, 
                  P_ext: float, 
@@ -11,19 +31,6 @@ class Cell:
                  mutation_vector: np.array = None):
         """
         Initializes a new, unoccupied Cell.
-
-          Attributes
-        --------------
-        active: bool
-            Determines whether this cell participates in the simulation
-        P_ext: float
-            Probability of extinction of an inhabiting member at every time step; based on vegetation class
-        P_col: float
-            Probabiltiy of colonization by an occupied neighborign cell at every time step, based on altitude
-        genotype: np.array([float, float, float])
-            Genetic information in the range [0, 255] that corresponds to color
-        mutation_vector: np.array([float, float, float])
-            The genetic shift at every time step
 
         """       
         self.active = active 
@@ -77,30 +84,15 @@ class Cell:
 
         # attempt to colonize
         colonized_cell = None 
-        unoccupied_neighbors = [(neighbor['location', neighbor['P_col)']) for neighbor in neighbor_info if neighbor is not None)]
+        coloized = False
+        unoccupied_neighbors = [(neighbor['location'], neighbor['P_col)']) for neighbor in neighbor_info if neighbor is not None]
         if len(unoccupied_neighbors > 0):
             cell_to_colonize = choice(unoccupied_neighbors)
             if random() < cell_to_colonize[1]:
                 colonized_cell = cell_to_colonize[0]
+                coloized = True
 
         # maybe die
-        dead = False
-        if random() < self.P_ext:
-            dead = True 
+        dead = True if random() < (self.P_ext + (0.15 * colonized)) else False
 
         return colonized_cell, dead
-        
-
-
-        pass
-        # self.P_density_ext = self.checkPopulationDensity(e) 
-        # self.P_ext = self.P_ext + self.elv_P_ext + self.density_P_ext # update probability of extinction
-        # #e.cells[self.x][self.y].P_ext = self.P_ext
-        # if (self.active and self.occupied):
-        #     if (random() < p_col):
-        #         potential_directions = self.getValidNeighboringCells(e)
-        #         if (len(potential_directions) > 0):
-        #             direction = potential_directions[int(random() * len(potential_directions))]
-        #             self.colonizeNeighbor(direction, e)
-        #     if (random() < self.P_ext):
-        #         self.becomeExtinct()
