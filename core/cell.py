@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.random import random, choice
 from settings import α, ß
 
 class Cell:
@@ -69,7 +70,27 @@ class Cell:
             3. (Maybe) Die
 
         """
-        neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None])
+        # update genotype
+        neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None]).T 
+        avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])])
+        self.genotype = ((self.genotype + avgs) / 2) + self.mutation_vector
+
+        # attempt to colonize
+        colonized_cell = None 
+        unoccupied_neighbors = [(neighbor['location', neighbor['P_col)']) for neighbor in neighbor_info if neighbor is not None)]
+        if len(unoccupied_neighbors > 0):
+            cell_to_colonize = choice(unoccupied_neighbors)
+            if random() < cell_to_colonize[1]:
+                colonized_cell = cell_to_colonize[0]
+
+        # maybe die
+        dead = False
+        if random() < self.P_ext:
+            dead = True 
+
+        return colonized_cell, dead
+        
+
 
         pass
         # self.P_density_ext = self.checkPopulationDensity(e) 
