@@ -16,7 +16,7 @@ class Driver:
 
     def run(self):
         world = self.create_initial_world()
-        for _ in tqdm(range(800)):
+        for _ in tqdm(range(400)):
             world.step()
         self.generate_map(world.get_occupied_cells())
 
@@ -80,7 +80,7 @@ class Driver:
             color = tuple(cells[i][1].astype(int).tolist())
             for x in range(σ):
                 for y in range(σ):
-                    im.putpixel((int(pos[0] * σ + (x - 1)) + X_OFFSET, int(pos[1] * σ + (y - 1))), color)
+                    im.putpixel((int(pos[0] * σ + x) + X_OFFSET, int(pos[1] * σ + y - 1)), color)
         im.save(os.path.join(self.paths['results'], 'result.png'))
 
     def introduction(self):
@@ -89,7 +89,4 @@ class Driver:
         print("     +" + "-" * len(title) + "+")
         print("      " + title)
         print("     +" + "-" * len(title) + "+")
-        print() 
-
-
-
+        print()
