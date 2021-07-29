@@ -76,6 +76,9 @@ class Cell:
             'P_ext':           self.P_ext,
             'occupied':        self.occupied
         }
+
+    def get_genotype(self) -> np.array:
+        return self.genotype
     
     def update(self, neighbor_info: list): # called each time step if cell is active and populated
         """

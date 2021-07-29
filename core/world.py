@@ -31,7 +31,6 @@ class HexagonalWorld:
         cell_info = self.get_current_state()
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
-                #if self.cells[i][j].is_occupied():
                 if cell_info[i][j] is not None and cell_info[i][j]['occupied']:
                     hexagonal_info = self.get_hexagonal_neighbor_info(i, j, cell_info)
                     colonized_cell, dead = self.cells[i][j].update(hexagonal_info)
@@ -69,6 +68,16 @@ class HexagonalWorld:
                     hexagonal_info.append(cell_info[i + a][j + b])
         hexagonal_info.append(cell_info[i + 1][j])
         return hexagonal_info
+
+    def get_occupied_cells(self) -> list:
+        occupied_cells = []
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                if self.cells[i][j].is_occupied():
+                    occupied_cells.append(([i, j], self.cells[i][j].get_genotype()))
+        return occupied_cells
+
+
 
 
     
