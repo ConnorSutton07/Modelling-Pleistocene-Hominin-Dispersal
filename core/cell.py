@@ -92,11 +92,7 @@ class Cell:
         # update genotype
         neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None and neighbor['genotype'] is not None]).T 
         avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])]) if neighbor_genotypes.size > 0 else 0
-        # ic(avgs, self.genotype, self.mutation_vector)
         self.genotype = np.clip(((self.genotype + avgs) / (1 + (avgs != 0))) + (self.mutation_vector * α), 0, 255)
-        # ic(self.genotype)
-        # print()
-        # print()
 
         # attempt to colonize
         colonized_cell = None 
@@ -110,5 +106,5 @@ class Cell:
                 colonized = True
 
         # maybe die
-        dead = True if random() < (self.P_ext + (0.15 * colonized)) else False
+        dead = True if random() < self.P_ext else False
         return colonized_cell, dead
