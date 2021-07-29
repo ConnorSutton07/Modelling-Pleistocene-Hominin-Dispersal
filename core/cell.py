@@ -53,7 +53,7 @@ class Cell:
         self.occupied = True
         self.genotype = genotype
         if mutation_vector is None:
-            self.mutation_vector = np.array([random() for _ in range(3)])
+            self.mutation_vector = np.array([random() * 2 - 1 for _ in range(3)])
         else:
             self.mutation_vector = mutation_vector + np.array([normal(scale = ß) for _ in range(3)])
         
@@ -92,7 +92,11 @@ class Cell:
         # update genotype
         neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None and neighbor['genotype'] is not None]).T 
         avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])]) if neighbor_genotypes.size > 0 else 0
-        self.genotype = ((self.genotype + avgs) / (1 + (avgs != 0))) + (self.mutation_vector * α)
+        # ic(avgs, self.genotype, self.mutation_vector)
+        self.genotype = np.clip(((self.genotype + avgs) / (1 + (avgs != 0))) + (self.mutation_vector * α), 0, 255)
+        # ic(self.genotype)
+        # print()
+        # print()
 
         # attempt to colonize
         colonized_cell = None 

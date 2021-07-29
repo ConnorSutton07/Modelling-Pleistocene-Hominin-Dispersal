@@ -20,5 +20,5 @@ INITIAL_POPULATION = [  # Scattered populations around East African Rift System
 #-----------------------
 #   Genetic Variation
 #-----------------------
-α = 3    # amplifies genetic drift
-ß = 0.01 # standard deviation of genotype mutation
+α = 10   # amplifies genetic drift
+ß = 0.25 # standard deviation of genotype mutation

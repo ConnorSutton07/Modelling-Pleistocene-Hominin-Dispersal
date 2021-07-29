@@ -1,6 +1,7 @@
 from core.world import HexagonalWorld 
 from settings import *
 from PIL import Image
+from icecream import ic
 import os
 
 class Driver:
@@ -43,21 +44,21 @@ class Driver:
             return None
         P_ext = 1.0
         if (pix[0] == 7 and pix[1] == 120 and pix[2] == 11): # Temperate Forest
-            P_ext = 0.03
-        elif (pix[0] == 255 and pix[1] == 128 and pix[2] == 0): # Grassland
-            P_ext = 0.03
-        elif (pix[0] == 255 and pix[1] == 242 and pix[2] == 0): # Desert
             P_ext = 0.06
+        elif (pix[0] == 255 and pix[1] == 128 and pix[2] == 0): # Grassland
+            P_ext = 0.05
+        elif (pix[0] == 255 and pix[1] == 242 and pix[2] == 0): # Desert
+            P_ext = 0.10
         elif (pix[0] == 0 and pix[1] == 79 and pix[2] == 0): # Tropical Forest
-            P_ext = 0.03
+            P_ext = 0.10
         elif (pix[0] == 22 and pix[1] == 204 and pix[2] == 250): # Tundra
             P_ext = 0.50
         elif (pix[0] == 164 and pix[1] == 252 and pix[2] == 67): # Warm-temperate Forest
-            P_ext = 0.06
+            P_ext = 0.08
         elif (pix[0] == 128 and pix[1] == 128 and pix[2] == 255): # Boreal Forest
-            P_ext = 0.33
+            P_ext = 0.12
         elif (pix[0] == 132 and pix[1] == 97 and pix[2] == 37): # Savanna
-            P_ext = 0.02
+            P_ext = 0.03
         elif (pix[0] == pix[1] == pix[2] == 200):
             P_ext = 1.0
         return P_ext
@@ -78,6 +79,7 @@ class Driver:
         for i in range(len(cells)):
             pos = cells[i][0]
             color = tuple(cells[i][1].astype(int).tolist())
+            ic(pos, color)
             for x in range(5):
                 for y in range(5):
                     im.putpixel((int(pos[0] * 5 + (x - 2)), int(pos[1] * 5 + (y - 2))), color)
