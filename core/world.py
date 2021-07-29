@@ -17,8 +17,14 @@ class HexagonalWorld:
     """
     def __init__(self, shape: tuple):
         self.shape = shape
-        self.cells = np.array([[None for i in range(self.shape[0])] for j in range(self.shape[1])], dtype = Cell)
+        self.cells = np.array([[None for i in range(self.shape[1])] for j in range(self.shape[0])], dtype = Cell)
         self.time_step = 0
+
+    def create_cell(self, index, active: bool, P_ext: float = None, P_col: float = None) -> None:
+        self.cells[index] = Cell(active, P_ext, P_col)
+
+    def populate(self, index) -> None:
+        self.cells[index].become_occupied()
 
     def step(self) -> None:
         cell_info = self.get_current_state()
