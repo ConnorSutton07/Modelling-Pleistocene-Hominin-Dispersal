@@ -12,5 +12,5 @@ WORLD_SHAPE = (205, 155)
 #-----------------------
 #   Genetic Variation
 #-----------------------
-α = 3
-
+α = 3    # amplifies genetic drift
+ß = 0.01 # standard deviation of genotype mutation
