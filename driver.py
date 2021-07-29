@@ -20,18 +20,13 @@ class Driver:
                 P_ext = Driver.pixel_to_extinction_probability(veg_im.getpixel((i,j)))
                 P_col = Driver.pixel_to_colinization_probability(elv_im.getpixel((i, j)))
                 if P_ext is None:
-                    world.cells[int(i/5)][int(j/5)] = Cell(False) # inactive cell
+                    world.create_cell((int(i/5), int(j/5)), False) # inactive cell
                 else:
-                    world.cells[int(i/5)][int(j/5)] = Cell(True, P_ext, P_col) # active cell with parameters based on vegetation, elevation
+                    world.create_cell((int(i/5), int(j/5)), True, P_ext, P_col) # active cell with parameters based on vegetation, elevation
 
         # arbitrary selection of cells in the East African Rift Valley -- do this randomly later
-        world.cells[84][91].become_occupied()
-        world.cells[85][92].become_occupied()
-        world.cells[85][96].become_occupied()
-        world.cells[86][90].become_occupied()
-        world.cells[87][94].become_occupied()
-        world.cells[88][93].become_occupied()
-
+        for member in INITIAL_POPULATION:
+            world.populate(member)
         return world
 
     @staticmethod
@@ -61,12 +56,14 @@ class Driver:
 
     @staticmethod
     def pixel_to_colinization_probability(pix) -> float:
-        if (elv_pix[0] == 203 and elv_pix[1] == 131 and elv_pix[2] == 7):
-            elv_P_ext = 0.05
-        elif (elv_pix[0] == 203 and elv_pix[1] == 41 and elv_pix[2] == 21):
-            elv_P_ext = 0.10
-        elif (elv_pix[0] == 112 and elv_pix[1] == 6 and elv_pix[2] == 6):
-            elv_P_ext = 0.22
+        P_col = 0 
+        if (pix[0] == 203 and pix[1] == 131 and pix[2] == 7):
+            P_col = 0.2
+        elif (pix[0] == 203 and pix[1] == 41 and pix[2] == 21):
+            P_col = 0.10
+        elif (pix[0] == 112 and pix[1] == 6 and pix[2] == 6):
+            P_col = 0.05
+        return P_col
 
 
     def introduction(self):
