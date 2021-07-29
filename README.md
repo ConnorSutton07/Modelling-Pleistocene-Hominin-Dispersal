@@ -1,4 +1,4 @@
-# Simulating-H.-Erectus-Dispersal-with-Cellular-Automata
+# Modelling Pleistocene Hominin Dispersal
 
 Connor Sutton, 12/11/2020
 
