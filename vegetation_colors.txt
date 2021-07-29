@@ -1,8 +1,0 @@
-Temperate Forest      | Light Green | (7, 120, 11)
-Grassland             | Orange      | (255, 128, 0)
-Desert		          | Yellow      | (255, 242, 0)
-Tropical Forest       | Dark Green  | (0, 79, 0)
-Tundra                | Cyan        | (153, 217, 234)
-Warm-temperate Forest | Lime	    | (164, 252, 67)
-Boreal Forest 	      | Blue        | (128, 128, 255)
-
