@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.random import random, choice
+from numpy.random import random, choice, normal
 from settings import α, ß
 
 class Cell:
@@ -22,13 +22,8 @@ class Cell:
         The genetic shift at every time step
 
     """
-    
-    def __init__(self, 
-                 active: bool, 
-                 P_ext: float, 
-                 P_col: float, 
-                 genotype: np.array = np.array([128.0, 128.0, 128.0], dtype = float), 
-                 mutation_vector: np.array = None):
+
+    def __init__(self, active: bool, P_ext: float = None, P_col: float = None):
         """
         Initializes a new, unoccupied Cell.
 
@@ -37,16 +32,30 @@ class Cell:
         self.occupied = False 
         self.P_ext = P_ext 
         self.P_col = P_col 
-        self.genotype = genotype
-        self.mutation_vector = mutation_vector if mutation_vector is not None else None # add noise to this
+        self.genotype = None
+        self.mutation_vector = None
 
     def isOccupied(self) -> bool:
         return self.occupied
         
-    def becomeOccupied(self, genotype: np.array, mutation_vector: np.array) -> None:
+    def becomeOccupied(self, 
+                       genotype: np.array = np.array([128.0, 128.0, 128.0], dtype = float), 
+                       mutation_vector: np.array = None
+                       ) -> None:
+        """
+        Cell becomes occupied, and inhabitor's genotype and mutation vector are set.
+
+        If these are unspecified, then this must be an intitial population; 
+        in this case, a default genotype and random mutation vector are used
+
+        """
         self.occupied = True
         self.genotype = genotype
-        self.mutation_vector = mutation_vector
+        if mutation_vector is None:
+            self.mutation_vector = np.array([random() for _ in range(3)])
+        else:
+            self.mutation_vector = mutation_vector + np.array([normal(scale = ß) for _ in range(3)])
+        self.mutation_vector = self.mutation_vector / np.linalg.norm(self.mutation_vector)
         
     def becomeExtinct(self) -> None:
         """ 
@@ -80,7 +89,7 @@ class Cell:
         # update genotype
         neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None]).T 
         avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])])
-        self.genotype = ((self.genotype + avgs) / 2) + self.mutation_vector
+        self.genotype = ((self.genotype + avgs) / 2) + (self.mutation_vector * α)
 
         # attempt to colonize
         colonized_cell = None 
