@@ -35,10 +35,10 @@ class Cell:
         self.genotype = None
         self.mutation_vector = None
 
-    def isOccupied(self) -> bool:
+    def is_occupied(self) -> bool:
         return self.occupied
         
-    def becomeOccupied(self, 
+    def become_occupied(self, 
                        genotype: np.array = np.array([128.0, 128.0, 128.0], dtype = float), 
                        mutation_vector: np.array = None
                        ) -> None:
@@ -57,7 +57,7 @@ class Cell:
             self.mutation_vector = mutation_vector + np.array([normal(scale = ß) for _ in range(3)])
         self.mutation_vector = self.mutation_vector / np.linalg.norm(self.mutation_vector)
         
-    def becomeExtinct(self) -> None:
+    def become_extinct(self) -> None:
         """ 
         Resets all attributes that are dependent on the current inhabitor
         i.e., the probabilities of extinction or colonization remain constant

@@ -24,13 +24,13 @@ class HexagonalWorld:
         cell_info = self.get_current_state()
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
-                if self.cells[i][j].isOccupied():
+                if self.cells[i][j].is_occupied():
                     hexagonal_info = self.get_hexagonal_neighbor_info(i, j, cell_info)
                     colonized_cell, dead = self.cells[i][j].update(hexagonal_info)
                     if colonized_cell is not None:
-                        self.cells[colonized_cell].becomeOccupied(cell_info[i][j]['genotype'], cell_info[i][j]['mutation_vector'])
+                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['mutation_vector'])
                     if dead:
-                        self.cells[i][j].becomeExtinct()
+                        self.cells[i][j].become_extinct()
         self.time_step += 1 
 
     def get_current_state(self) -> list:
