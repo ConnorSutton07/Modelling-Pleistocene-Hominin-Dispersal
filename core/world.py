@@ -1,5 +1,6 @@
 from core.cell import Cell 
 import numpy as np
+from icecream import ic
 
 class HexagonalWorld:
     """
@@ -30,21 +31,22 @@ class HexagonalWorld:
         cell_info = self.get_current_state()
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
-                if self.cells[i][j].is_occupied():
+                #if self.cells[i][j].is_occupied():
+                if cell_info[i][j] is not None and cell_info[i][j]['occupied']:
                     hexagonal_info = self.get_hexagonal_neighbor_info(i, j, cell_info)
                     colonized_cell, dead = self.cells[i][j].update(hexagonal_info)
                     if colonized_cell is not None:
-                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['mutation_vector'])
+                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['mutation-vector'])
                     if dead:
                         self.cells[i][j].become_extinct()
         self.time_step += 1 
 
     def get_current_state(self) -> list:
-        cell_info = [[None for i in range(self.shape[0])] for j in range(self.shape[1])]
+        cell_info = [[None for i in range(self.shape[1])] for j in range(self.shape[0])]
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 cell_info[i][j] = self.cells[i][j].get_info()
-                cell_info[i][j]['location'].append((i, j))
+                if cell_info[i][j] is not None: cell_info[i][j].update({'location': (i, j)})
         return cell_info
 
 

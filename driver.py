@@ -1,19 +1,25 @@
 from core.world import HexagonalWorld 
 from settings import *
 from PIL import Image
+import os
 
 class Driver:
     def __init__(self):
         self.introduction()
+        self.paths = {
+            'figures': os.path.join(os.getcwd(), 'figures'),
+            'maps':    os.path.join(os.getcwd(), 'maps')
+        }
 
     def run(self):
         world = self.create_initial_world()
-        #world = World(WORLD_SHAPE)
+        for _ in range(5):
+            world.step()
 
     def create_initial_world(self):
         world = HexagonalWorld(WORLD_SHAPE)
-        veg_im = Image.open("vegetation_map.png")
-        elv_im = Image.open("elevation_map.png")
+        veg_im = Image.open(os.path.join(self.paths['maps'], "vegetation_map.png"))
+        elv_im = Image.open(os.path.join(self.paths['maps'], "elevation_map.png"))
         rows, cols = WORLD_SHAPE
         for i in range(0, rows * 5, 5):
             for j in range(0, cols * 5, 5):
@@ -56,9 +62,9 @@ class Driver:
 
     @staticmethod
     def pixel_to_colinization_probability(pix) -> float:
-        P_col = 0 
+        P_col = 0.2
         if (pix[0] == 203 and pix[1] == 131 and pix[2] == 7):
-            P_col = 0.2
+            P_col = 0.15
         elif (pix[0] == 203 and pix[1] == 41 and pix[2] == 21):
             P_col = 0.10
         elif (pix[0] == 112 and pix[1] == 6 and pix[2] == 6):

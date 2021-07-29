@@ -1,6 +1,7 @@
 import numpy as np
-from numpy.random import random, choice, normal
+from numpy.random import random, randint, normal
 from settings import α, ß
+from icecream import ic
 
 class Cell:
     """
@@ -55,7 +56,6 @@ class Cell:
             self.mutation_vector = np.array([random() for _ in range(3)])
         else:
             self.mutation_vector = mutation_vector + np.array([normal(scale = ß) for _ in range(3)])
-        self.mutation_vector = self.mutation_vector / np.linalg.norm(self.mutation_vector)
         
     def become_extinct(self) -> None:
         """ 
@@ -87,21 +87,21 @@ class Cell:
 
         """
         # update genotype
-        neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None]).T 
-        avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])])
-        self.genotype = ((self.genotype + avgs) / 2) + (self.mutation_vector * α)
+        neighbor_genotypes = np.array([neighbor['genotype'] for neighbor in neighbor_info if neighbor is not None and neighbor['genotype'] is not None]).T 
+        avgs = np.array([np.mean(neighbor_genotypes[0]), np.mean(neighbor_genotypes[1]), np.mean(neighbor_genotypes[2])]) if neighbor_genotypes.size > 0 else 0
+        self.genotype = ((self.genotype + avgs) / (1 + (avgs != 0))) + (self.mutation_vector * α)
 
         # attempt to colonize
         colonized_cell = None 
-        coloized = False
-        unoccupied_neighbors = [(neighbor['location'], neighbor['P_col)']) for neighbor in neighbor_info if neighbor is not None]
-        if len(unoccupied_neighbors > 0):
-            cell_to_colonize = choice(unoccupied_neighbors)
+        colonized = False
+        unoccupied_neighbors = [(neighbor['location'], neighbor['P_col']) for neighbor in neighbor_info if neighbor is not None]
+        if len(unoccupied_neighbors) > 0:
+            # print(unoccupied_neighbors)
+            cell_to_colonize = unoccupied_neighbors[randint(0, len(unoccupied_neighbors))]
             if random() < cell_to_colonize[1]:
                 colonized_cell = cell_to_colonize[0]
-                coloized = True
+                colonized = True
 
         # maybe die
         dead = True if random() < (self.P_ext + (0.15 * colonized)) else False
-
         return colonized_cell, dead
