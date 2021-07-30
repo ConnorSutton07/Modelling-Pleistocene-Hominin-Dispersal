@@ -11,7 +11,7 @@ from numpy.random import randint
 #-----------------------------
 WORLD_SHAPE = (310, 250)
 X_OFFSET = 60
-INITIAL_POPULATION = [(randint(120, 131), randint(140, 170)) for _ in range(20)]  # Scattered populations around East African Rift System
+INITIAL_POPULATION = [(randint(90, 115), randint(145, 165)) for _ in range(20)]  # Scattered populations around East African Rift System
 σ = 3
 
 #-----------------------------
