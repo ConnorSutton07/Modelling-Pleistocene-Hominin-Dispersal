@@ -1,10 +1,10 @@
-from core.cell import Cell 
+from core.cell import * 
 import numpy as np
 from icecream import ic
 
-class HexagonalWorld:
+class World:
     """
-    Hexagonal grid spice containing a population of cells
+    Rectangular grid spice containing a population of cells
 
        Attributes
     ----------------
@@ -22,7 +22,7 @@ class HexagonalWorld:
         self.time_step = 0
 
     def create_cell(self, index, active: bool, P_ext: float = None, P_col: float = None) -> None:
-        self.cells[index] = Cell(active, P_ext, P_col)
+        self.cells[index] = GeneticCell(active, P_ext, P_col)
 
     def populate(self, index) -> None:
         self.cells[index].become_occupied()
@@ -32,10 +32,10 @@ class HexagonalWorld:
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 if cell_info[i][j] is not None and cell_info[i][j]['occupied']:
-                    hexagonal_info = self.get_hexagonal_neighbor_info(i, j, cell_info)
-                    colonized_cell, dead = self.cells[i][j].update(hexagonal_info)
+                    neighbor_info = self.get_moore_neighbor_info(i, j, cell_info)
+                    colonized_cell, dead = self.cells[i][j].update(neighbor_info)
                     if colonized_cell is not None:
-                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['mutation-vector'])
+                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['drift-vector'])
                     if dead:
                         self.cells[i][j].become_extinct()
         self.time_step += 1 
@@ -68,6 +68,18 @@ class HexagonalWorld:
                     hexagonal_info.append(cell_info[i + a][j + b])
         hexagonal_info.append(cell_info[i + 1][j])
         return hexagonal_info
+
+    def get_moore_neighbor_info(self, i, j, cell_info) -> dict:
+        """ 
+        Retrieves the info of cells in a Moore neighborhood (square including diagonals) around the given index.
+
+        """
+        neighbor_info = []
+        for a in range(-1, 2):
+            for b in range(-1, 2):
+                if not (a == b == 0): 
+                    neighbor_info.append(cell_info[i + a][j + b])
+        return neighbor_info
 
     def get_occupied_cells(self) -> list:
         occupied_cells = []

@@ -1,4 +1,4 @@
-from core.world import HexagonalWorld 
+from core.world import World 
 from settings import *
 from PIL import Image
 from icecream import ic
@@ -21,7 +21,7 @@ class Driver:
         self.generate_map(world.get_occupied_cells())
 
     def create_initial_world(self):
-        world = HexagonalWorld(WORLD_SHAPE)
+        world = World(WORLD_SHAPE)
         veg_im = Image.open(os.path.join(self.paths['maps'], "vegetation_map.png"))
         elv_im = Image.open(os.path.join(self.paths['maps'], "elevation_map.png"))
         rows, cols = WORLD_SHAPE
@@ -80,7 +80,7 @@ class Driver:
             color = tuple(cells[i][1].astype(int).tolist())
             for x in range(σ):
                 for y in range(σ):
-                    im.putpixel((int(pos[0] * σ + x) + X_OFFSET, int(pos[1] * σ + y - 1)), color)
+                    im.putpixel((int(pos[0] * σ + x + 2) + X_OFFSET, int(pos[1] * σ + y - 2)), color)
         im.save(os.path.join(self.paths['results'], 'result.png'))
 
     def introduction(self):
