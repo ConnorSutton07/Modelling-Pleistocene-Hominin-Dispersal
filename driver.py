@@ -25,9 +25,10 @@ class Driver:
 
     def run(self):
         world = self.create_initial_world()
-        for _ in tqdm(range(100)):
+        for _ in tqdm(range(400)):
             world.step()
         self.generate_density_map([world.get_all_cells()])
+        self.generate_variation_map2([world.get_all_cells()])
 
     def create_initial_world(self):
         world = GeneticWorld(WORLD_SHAPE)

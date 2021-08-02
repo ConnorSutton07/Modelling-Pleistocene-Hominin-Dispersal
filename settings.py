@@ -17,8 +17,8 @@ INITIAL_POPULATION = [(randint(90, 115), randint(145, 165)) for _ in range(20)] 
 #-----------------------------
 #      Genetic Variation
 #-----------------------------
-α = 0.5    # amplifies genetic drift
-ß = 0.1    # standard deviation of genotype mutation
+α = 0.25   # amplifies genetic drift
+ß = 0.10   # standard deviation of genotype mutation
 
 
 #-----------------------------
