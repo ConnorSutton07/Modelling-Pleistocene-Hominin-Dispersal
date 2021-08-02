@@ -1,9 +1,10 @@
-from core.world import World 
+from core.world import * 
 from settings import *
 from PIL import Image
 from icecream import ic
 from tqdm import tqdm
 import os
+import numpy as np
 
 class Driver:
     def __init__(self):
@@ -14,14 +15,22 @@ class Driver:
             'results': os.path.join(os.getcwd(), 'results')
         }
 
+    def parallel_run(self):
+        worlds = [self.create_initial_world() for _ in range(3)]
+        for _ in tqdm(range(100)):
+            for world in worlds:
+                world.step()
+        self.generate_density_map([world.get_all_cells() for world in worlds])
+        self.generate_variation_map2([world.get_all_cells() for world in worlds])
+
     def run(self):
         world = self.create_initial_world()
-        for _ in tqdm(range(400)):
+        for _ in tqdm(range(100)):
             world.step()
-        self.generate_map(world.get_occupied_cells())
+        self.generate_density_map([world.get_all_cells()])
 
     def create_initial_world(self):
-        world = World(WORLD_SHAPE)
+        world = GeneticWorld(WORLD_SHAPE)
         veg_im = Image.open(os.path.join(self.paths['maps'], "vegetation_map.png"))
         elv_im = Image.open(os.path.join(self.paths['maps'], "elevation_map.png"))
         rows, cols = WORLD_SHAPE
@@ -73,7 +82,7 @@ class Driver:
             P_col = HIGH
         return P_col
 
-    def generate_map(self, cells: list) -> None:
+    def generate_variation_map(self, cells: list) -> None:
         im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
         for i in range(len(cells)):
             pos = cells[i][0]
@@ -81,8 +90,45 @@ class Driver:
             for x in range(σ):
                 for y in range(σ):
                     im.putpixel((int(pos[0] * σ + x + 2) + X_OFFSET, int(pos[1] * σ + y - 2)), color)
-        im.save(os.path.join(self.paths['results'], 'result.png'))
+        im.save(os.path.join(self.paths['results'], 'variation_map.png'))
 
+    def generate_variation_map2(self, worlds: list) -> None:
+        im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
+        for i in range(WORLD_SHAPE[0]):
+            for j in range(WORLD_SHAPE[1]):
+                avg_c = np.zeros((3,))
+                num_occupied = 0
+                for cells in worlds:
+                    if cells[i][j].is_occupied(): 
+                        avg_c += cells[i][j].get_genotype()
+                        num_occupied += 1
+                if num_occupied > 0:
+                    avg_c = tuple((avg_c / num_occupied).astype(int).tolist())
+                    for x in range(σ):
+                        for y in range(σ):
+                            im.putpixel((int(i * σ + x + 2) + X_OFFSET, int(j * σ + y - 2)), avg_c)
+            # color = tuple(cells[i][1].astype(int).tolist())
+            # for x in range(σ):
+            #     for y in range(σ):
+            #         im.putpixel((int(pos[0] * σ + x + 2) + X_OFFSET, int(pos[1] * σ + y - 2)), color)
+        im.save(os.path.join(self.paths['results'], 'variation_map.png'))
+
+    def generate_density_map(self, worlds: list) -> None:
+        im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
+        for i in range(WORLD_SHAPE[0]):
+            for j in range(WORLD_SHAPE[1]):
+                num_occupied = 0
+                for cells in worlds:
+                    if cells[i][j].is_occupied(): num_occupied += 1
+                if num_occupied > 0:
+                    c = int(255 - ((num_occupied / len(worlds)) * 255))
+                    for x in range(σ):
+                        for y in range(σ):
+                            im.putpixel((int(i * σ + x + 2) + X_OFFSET, int(j * σ + y - 2)), (c, c, c))
+        im.save(os.path.join(self.paths['results'], 'density_map.png'))
+
+
+ 
     def introduction(self):
         title = "Modelling Pleistocene Hominin Dispersal"
         print()
