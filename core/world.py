@@ -22,7 +22,7 @@ class World:
         self.time_step = 0
 
     def create_cell(self, index, active: bool, P_ext: float = None, P_col: float = None) -> None:
-        self.cells[index] = GeneticCell(active, P_ext, P_col)
+        self.cells[index] = Cell(active, P_ext, P_col)
 
     def populate(self, index) -> None:
         self.cells[index].become_occupied()
@@ -35,7 +35,7 @@ class World:
                     neighbor_info = self.get_moore_neighbor_info(i, j, cell_info)
                     colonized_cell, dead = self.cells[i][j].update(neighbor_info)
                     if colonized_cell is not None:
-                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['drift-vector'])
+                        self.cells[colonized_cell].become_occupied()
                     if dead:
                         self.cells[i][j].become_extinct()
         self.time_step += 1 
@@ -86,14 +86,40 @@ class World:
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 if self.cells[i][j].is_occupied():
+                    occupied_cells.append([i, j])
+        return occupied_cells
+    
+    def get_all_cells(self) -> list:
+        return self.cells
+
+
+class GeneticWorld(World):
+    def __init__(self, shape: tuple):
+        super().__init__(shape)
+
+    def create_cell(self, index, active: bool, P_ext: float = None, P_col: float = None) -> None:
+        self.cells[index] = GeneticCell(active, P_ext, P_col)
+
+    def step(self) -> None:
+        cell_info = self.get_current_state()
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                if cell_info[i][j] is not None and cell_info[i][j]['occupied']:
+                    neighbor_info = self.get_moore_neighbor_info(i, j, cell_info)
+                    colonized_cell, dead = self.cells[i][j].update(neighbor_info)
+                    if colonized_cell is not None:
+                        self.cells[colonized_cell].become_occupied(cell_info[i][j]['genotype'], cell_info[i][j]['drift-vector'])
+                    if dead:
+                        self.cells[i][j].become_extinct()
+        self.time_step += 1 
+
+    def get_occupied_cells(self) -> list:
+        occupied_cells = []
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                if self.cells[i][j].is_occupied():
                     occupied_cells.append(([i, j], self.cells[i][j].get_genotype()))
         return occupied_cells
-
-
-
-
-    
-
 
 
 
