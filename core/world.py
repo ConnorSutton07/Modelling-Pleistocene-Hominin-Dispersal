@@ -120,6 +120,3 @@ class GeneticWorld(World):
                 if self.cells[i][j].is_occupied():
                     occupied_cells.append(([i, j], self.cells[i][j].get_genotype()))
         return occupied_cells
-
-
-

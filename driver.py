@@ -6,6 +6,8 @@ from tqdm import tqdm
 import os
 import numpy as np
 import argparse
+import imageio
+
 
 class Driver:
     def __init__(self):
@@ -34,18 +36,25 @@ class Driver:
                 for world in worlds:
                     world.step()
         self.generate_density_map([world.get_all_cells() for world in worlds])
-        self.generate_variation_map2([world.get_all_cells() for world in worlds])
+        self.generate_variation_map([world.get_all_cells() for world in worlds])
+        print("Variation & Density maps saved.")
 
     def run_variation(self, steps: int):
         world = self.create_initial_world()
-        for _ in tqdm(range(steps)):
+        temp_dir = os.path.join(self.paths['results'], 'temp')
+        os.mkdir(temp_dir) # create a directory to save checkpoints
+        prefix = 'tmp_variation_'
+        for i in tqdm(range(steps)):
             world.step()
-        self.generate_density_map([world.get_all_cells()])
-        self.generate_variation_map2([world.get_all_cells()])
+            self.generate_density_map([world.get_all_cells()], title = (prefix + str(i)))
+        #self.generate_density_map([world.get_all_cells()])
+        #self.generate_variation_map([world.get_all_cells()])
+        self.create_gif(temp_dir)
+        print("Variation map saved.")
 
     def parse_args(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('mode', choices = self.modes.keys(), nargs = '?', const = 'variation', help = 'determines which mode to run')
+        parser.add_argument('mode', choices = self.modes.keys(), nargs = '?', default = 'variation', help = 'determines which mode to run')
         args = parser.parse_args()
         return args
 
@@ -102,17 +111,7 @@ class Driver:
             P_col = HIGH
         return P_col
 
-    def generate_variation_map(self, cells: list) -> None:
-        im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
-        for i in range(len(cells)):
-            pos = cells[i][0]
-            color = tuple(cells[i][1].astype(int).tolist())
-            for x in range(σ):
-                for y in range(σ):
-                    im.putpixel((int(pos[0] * σ + x + 2) + X_OFFSET, int(pos[1] * σ + y - 2)), color)
-        im.save(os.path.join(self.paths['results'], 'variation_map.png'))
-
-    def generate_variation_map2(self, worlds: list) -> None:
+    def generate_variation_map(self, worlds: list) -> None:
         im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
         for i in range(WORLD_SHAPE[0]):
             for j in range(WORLD_SHAPE[1]):
@@ -127,10 +126,6 @@ class Driver:
                     for x in range(σ):
                         for y in range(σ):
                             im.putpixel((int(i * σ + x + 1) + X_OFFSET, int(j * σ + y - 8)), avg_c)
-            # color = tuple(cells[i][1].astype(int).tolist())
-            # for x in range(σ):
-            #     for y in range(σ):
-            #         im.putpixel((int(pos[0] * σ + x + 2) + X_OFFSET, int(pos[1] * σ + y - 2)), color)
         im.save(os.path.join(self.paths['results'], 'variation_map.png'))
 
     def generate_density_map(self, worlds: list) -> None:
@@ -146,6 +141,13 @@ class Driver:
                         for y in range(σ):
                             im.putpixel((int(i * σ + x + 1) + X_OFFSET, int(j * σ + y - 8)), (c, c, c))
         im.save(os.path.join(self.paths['results'], 'density_map.png'))
+
+    @staticmethod
+    def create_gif(path: str):
+        with imageio.get_writer(path, mode='I', duration=0.1) as writer:
+            for filename in filenames:
+                image = imageio.imread(filename)
+                writer.append_data(image)
 
 
  
