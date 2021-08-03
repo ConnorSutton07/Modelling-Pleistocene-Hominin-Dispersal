@@ -5,30 +5,49 @@ from icecream import ic
 from tqdm import tqdm
 import os
 import numpy as np
+import argparse
 
 class Driver:
     def __init__(self):
         self.introduction()
+
+        self.modes = {
+            'density':   self.run_density,
+            'variation': self.run_variation
+        }
         self.paths = {
             'figures': os.path.join(os.getcwd(), 'figures'),
             'maps':    os.path.join(os.getcwd(), 'maps'),
             'results': os.path.join(os.getcwd(), 'results')
         }
 
-    def parallel_run(self):
+        args = self.parse_args()
+        self.mode = args.mode
+
+    def run(self):
+        steps = int(input('Steps: '))
+        self.modes[self.mode](steps)
+
+    def run_density(self, steps: int):
         worlds = [self.create_initial_world() for _ in range(3)]
-        for _ in tqdm(range(100)):
-            for world in worlds:
-                world.step()
+        for _ in tqdm(range(steps)):
+                for world in worlds:
+                    world.step()
         self.generate_density_map([world.get_all_cells() for world in worlds])
         self.generate_variation_map2([world.get_all_cells() for world in worlds])
 
-    def run(self):
+    def run_variation(self, steps: int):
         world = self.create_initial_world()
-        for _ in tqdm(range(400)):
+        for _ in tqdm(range(steps)):
             world.step()
         self.generate_density_map([world.get_all_cells()])
         self.generate_variation_map2([world.get_all_cells()])
+
+    def parse_args(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('mode', choices = self.modes.keys(), nargs = '?', const = 'variation', help = 'determines which mode to run')
+        args = parser.parse_args()
+        return args
 
     def create_initial_world(self):
         world = GeneticWorld(WORLD_SHAPE)
@@ -107,7 +126,7 @@ class Driver:
                     avg_c = tuple((avg_c / num_occupied).astype(int).tolist())
                     for x in range(σ):
                         for y in range(σ):
-                            im.putpixel((int(i * σ + x + 2) + X_OFFSET, int(j * σ + y - 2)), avg_c)
+                            im.putpixel((int(i * σ + x + 1) + X_OFFSET, int(j * σ + y - 8)), avg_c)
             # color = tuple(cells[i][1].astype(int).tolist())
             # for x in range(σ):
             #     for y in range(σ):
@@ -125,7 +144,7 @@ class Driver:
                     c = int(255 - ((num_occupied / len(worlds)) * 255))
                     for x in range(σ):
                         for y in range(σ):
-                            im.putpixel((int(i * σ + x + 2) + X_OFFSET, int(j * σ + y - 2)), (c, c, c))
+                            im.putpixel((int(i * σ + x + 1) + X_OFFSET, int(j * σ + y - 8)), (c, c, c))
         im.save(os.path.join(self.paths['results'], 'density_map.png'))
 
 
