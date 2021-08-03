@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.random import random, randint, normal
 from settings import α, ß
-from icecream import ic
+#from icecream import ic
 
 class Cell:
     """

@@ -1,6 +1,6 @@
 from core.cell import * 
 import numpy as np
-from icecream import ic
+#from icecream import ic
 
 class World:
     """

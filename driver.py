@@ -1,13 +1,12 @@
 from core.world import * 
 from settings import *
 from PIL import Image
-from icecream import ic
 from tqdm import tqdm
 import os
+import shutil
 import numpy as np
 import argparse
-import imageio
-
+import glob
 
 class Driver:
     def __init__(self):
@@ -42,14 +41,14 @@ class Driver:
     def run_variation(self, steps: int):
         world = self.create_initial_world()
         temp_dir = os.path.join(self.paths['results'], 'temp')
-        os.mkdir(temp_dir) # create a directory to save checkpoints
+        if os.path.isdir(temp_dir): shutil.rmtree(temp_dir)
+        os.mkdir(temp_dir) 
         prefix = 'tmp_variation_'
         for i in tqdm(range(steps)):
             world.step()
-            self.generate_density_map([world.get_all_cells()], title = (prefix + str(i)))
-        #self.generate_density_map([world.get_all_cells()])
-        #self.generate_variation_map([world.get_all_cells()])
-        self.create_gif(temp_dir)
+            self.generate_variation_map([world.get_all_cells()], os.path.join(temp_dir, prefix + format(i, '05d')))
+        self.create_gif(os.path.join(temp_dir, prefix + '*.png'), os.path.join(self.paths['results'], 'variation.gif'))
+        shutil.rmtree(temp_dir)
         print("Variation map saved.")
 
     def parse_args(self):
@@ -111,7 +110,7 @@ class Driver:
             P_col = HIGH
         return P_col
 
-    def generate_variation_map(self, worlds: list) -> None:
+    def generate_variation_map(self, worlds: list, path: str) -> None:
         im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
         for i in range(WORLD_SHAPE[0]):
             for j in range(WORLD_SHAPE[1]):
@@ -126,7 +125,9 @@ class Driver:
                     for x in range(σ):
                         for y in range(σ):
                             im.putpixel((int(i * σ + x + 1) + X_OFFSET, int(j * σ + y - 8)), avg_c)
-        im.save(os.path.join(self.paths['results'], 'variation_map.png'))
+        #im.save(os.path.join(self.paths['results'], 'variation_map.png'))
+        im.save(path + '.png')
+
 
     def generate_density_map(self, worlds: list) -> None:
         im = Image.open(os.path.join(self.paths['maps'], 'afroeurasia.png'))
@@ -143,14 +144,10 @@ class Driver:
         im.save(os.path.join(self.paths['results'], 'density_map.png'))
 
     @staticmethod
-    def create_gif(path: str):
-        with imageio.get_writer(path, mode='I', duration=0.1) as writer:
-            for filename in filenames:
-                image = imageio.imread(filename)
-                writer.append_data(image)
+    def create_gif(fp_in: str, fp_out):
+        img, *imgs = [Image.open(f) for f in sorted(glob.glob(fp_in))]
+        img.save(fp=fp_out, format='GIF', append_images=imgs, save_all=True, duration=50, loop = 1)
 
-
- 
     def introduction(self):
         title = "Modelling Pleistocene Hominin Dispersal"
         print()
